@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 
@@ -138,8 +139,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '123',
-            'secret': '456',
+            'client_id': 'Ov23li6NNg4V02xvSF8M',
+            'secret': '08ec64bcfaf96be59fc6951a3e8661986124ba28',
             'key': ''
         }
     }
