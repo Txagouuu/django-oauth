@@ -1,83 +1,114 @@
-# 🌌 Django oAuth 2.0
+# 🔐 Django OAuth 2.0 Authentication com Allauth
 
-Este repositório contém o código-fonte do projeto **ADjango oAuth 2.0**, uma galeria de imagens do espaço, desenvolvido durante o curso de **Formação Django** da [Alura](https://www.alura.com.br/). O objetivo principal deste projeto é aplicar os conceitos fundamentais do framework Django para construir uma aplicação web funcional utilizado a biblioteca django-allauth para a utilização de oAuth 2.0.
+Este repositório documenta meus estudos práticos sobre **autenticação OAuth 2.0 em aplicações Django**, utilizando a biblioteca **django-allauth** para integração com provedores externos como Google, GitHub e outros.
 
-> 🚀 **Status:** Concluído
+O objetivo é entender não apenas a implementação, mas também os **fluxos de segurança envolvidos**, boas práticas e riscos comuns em sistemas de autenticação modernos.
 
-##  functionalities
+📚 **Estudo realizado através da plataforma Alura.**
 
-* [X] Sistema de usuários e autenticação .
+---
 
-## 🛠️ Tecnologias Utilizadas
+## 🎯 Objetivos
 
-* **Backend:** Python, Django
-* **Frontend:** HTML, CSS
-* **Banco de Dados:** SQLite3 (para desenvolvimento)
-* **Gerenciamento de Pacotes:** Pip
+* Implementar login social via OAuth 2.0
+* Compreender os fluxos:
 
-## ⚙️ Como Rodar o Projeto Localmente
+  * Authorization Code
+  * Refresh Token
+* Integrar autenticação segura ao Django
+---
 
-Siga os passos abaixo para configurar e executar o projeto em sua máquina.
+## 🧰 Tecnologias
 
-**Pré-requisitos:**
-* Python 3.8+
-* Git
+* Python 3.11+
+* Django 5+
+* django-allauth
+* SQLite (ambiente de desenvolvimento)
+* Provedores OAuth 2.0 (GitHub)
 
-**Passos:**
+---
 
-1.  **Clone o repositório:**
-    ```bash
-    git clone https://github.com/Txagouuu/django-oauth.git
-    cd django-oauth
-    ```
+## ⚙️ Instalação
 
-2.  **Crie e ative um ambiente virtual:**
-    ```bash
-    # Criar o ambiente virtual
-    python -m venv venv
+```bash
+git clone https://github.com/Txagouuu/django-oauth.git
+cd django-oauth
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
 
-    # Ativar no Windows
-    .\venv\Scripts\activate
+---
 
-    # Ativar no Linux/macOS
-    source venv/bin/activate
-    ```
+## 🔐 Configuração do Allauth
 
-3.  **Instale as dependências:**
-    O arquivo `requirements.txt` contém todas as bibliotecas Python necessárias.
-    ```bash
-    pip install -r requirements.txt
-    ```
+1. Instalação da biblioteca:
 
-4.  **Configure as variáveis de ambiente:**
-    Crie um arquivo chamado `.env` na raiz do projeto, copie o conteúdo abaixo e cole nele.
-    ```env
-    SECRET_KEY='sua-chave-secreta-aqui'
-    DEBUG=True
-    ```
-    > **Dica:** Você pode gerar uma nova `SECRET_KEY` usando o próprio Django. Abra um terminal Python (`python`) e execute:
-    > `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
+```bash
+pip install django-allauth
+```
 
-5.  **Aplique as migrações do banco de dados:**
-    Este comando irá criar o arquivo `db.sqlite3` e as tabelas necessárias.
-    ```bash
-    python manage.py migrate
-    ```
+2. Adicione ao `INSTALLED_APPS`:
 
-6.  **Crie um superusuário:**
-    Você precisará de um usuário administrador para acessar o painel `/admin/`.
-    ```bash
-    python manage.py createsuperuser
-    ```
-    (Siga as instruções para definir nome de usuário, email e senha).
+```python
+INSTALLED_APPS = [
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+]
+```
 
-7.  **Execute o servidor de desenvolvimento:**
-    ```bash
-    python manage.py runserver
-    ```
+3. Configurações básicas:
 
-8.  Abra seu navegador e acesse [http://127.0.0.1:8000/](http://127.0.0.1:8000/) para ver o projeto em ação!
+```python
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+```
 
-## 📄 Licença
+4. Aplicar migrações:
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+```bash
+python manage.py migrate
+```
+
+---
+
+## 🛡️ Boas Práticas de Segurança
+**Configure as variáveis de ambiente:**
+Crie um arquivo chamado `.env` na raiz do projeto, copie o conteúdo abaixo e cole nele.
+Inclua no arquivo `.env` os seguintes parâmetros `client_id` e `secret` para questão de uma maior segurança da aplicação
+
+```env
+SECRET_KEY='sua-chave-secreta-aqui'
+DEBUG=True
+```
+```env
+CLIENT_ID = 'client_id'
+SECRET = 'secret'
+```
+> **Dica:** Você pode gerar uma nova `SECRET_KEY` usando o próprio Django. Abra um terminal Python (`python`) e execute:
+> `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
+
+---
+
+## 📚 Referências
+
+* Django Allauth Documentation
+* Alura
+
+---
+
+## 👨‍💻 Autor
+
+**Tiago Mendonça**
+
+Software Engineer Student | Cybersecurity Student
+
+Backend • DevSecOps • Security Engineering
