@@ -20,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-46tv54cdkjm+d$205g&k)_$kjdaw!ui95(!%3f$rg(q+n-z*n('
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -139,8 +140,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': 'Ov23li6NNg4V02xvSF8M',
-            'secret': '08ec64bcfaf96be59fc6951a3e8661986124ba28',
+            'client_id': str(os.getenv('client_id')),
+            'secret': str(os.getenv('secret')),
             'key': ''
         }
     }
